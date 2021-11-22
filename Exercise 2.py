@@ -14,17 +14,22 @@ print(stop - start, '\n')
 
 def fibonacci_memo():
     a, b = 0, 1
-    def fibonacci():
+    res = {}
+    def fibonacci(n):
         nonlocal a, b
-        a, b = b, a + b
-        return b
+        if n in res:
+            return res[n]
+        if n == 1:
+            res[n] = 1
+        else:
+            a, b = b, a + b
+            res[n] = b
+        return res
     return fibonacci
 
-
-start1 = time.time()
 fibonacci = fibonacci_memo()
+start1 = time.time()
 for i in range(1, 10):
-    my_fibo = fibonacci()
-    print(my_fibo)
+    print(*fibonacci(i).values())
 stop1 = time.time()
 print(stop1 - start1)
